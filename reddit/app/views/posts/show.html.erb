@@ -6,3 +6,21 @@
 <a href="<%= subs_url %>">Back to All Subs</a>
 <br>
 <a href="<%= edit_post_url(@post) %>">Edit Post</a>
+<br>
+<a href="<%= new_post_comment_url(@post) %>">Add Comment</a>
+
+<h2>Comments</h2>
+
+<ul>
+    <% @post.comments.where(parent_comment_id: nil).each do |comment| %>
+        <li>
+            <a href="<%= comment_url(comment) %>"><%= comment.content %></a>
+            <br>
+            <ul>
+                <% comment.child_comments.each do |child_comment|%>
+                    <li><%= child_comment.content%></li>
+                <% end%>
+            </ul>       
+        </li>
+    <% end %>
+</ul>
